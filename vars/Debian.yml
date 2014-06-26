@@ -1,0 +1,7 @@
+---
+# Defines variables for Debian/Ubuntu
+
+driveclient_service: 'driveclient'
+driveclient_source: '/etc/apt/sources.list.d/driveclient.list'
+driveclient_packages:
+  - 'driveclient'

@@ -1,0 +1,8 @@
+---
+# Handlers for driveclient agent
+
+- name: restart driveclient
+  service: >
+    name={{ driveclient_service }}
+    state=restarted
+    enabled=yes

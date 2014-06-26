@@ -1,0 +1,7 @@
+---
+# The variables file used by driveclient playbooks.
+# If not overriden in inventory or as a parameter, this is the value that will be used
+
+driveclient_enabled: false
+driveclient_username: ""
+driveclient_apikey: ""
