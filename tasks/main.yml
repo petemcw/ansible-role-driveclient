@@ -8,7 +8,8 @@
     - rackspace
 
 - name: Check for APT repository
-  stat: path={{ driveclient_source }}
+  stat: >
+    path={{ driveclient_source }}
   register: source_path
   when: ansible_os_family == 'Debian'
   tags:
@@ -16,7 +17,8 @@
     - rackspace
 
 - name: Add APT key for Debian derivatives
-  command: sh -c 'wget -q "http://agentrepo.drivesrvr.com/debian/agentrepo.key" -O- | apt-key add -'
+  command: >
+    sh -c 'wget -q "http://agentrepo.drivesrvr.com/debian/agentrepo.key" -O- | apt-key add -'
   when: source_path.stat.exists == false
   tags:
     - driveclient
@@ -24,7 +26,7 @@
 
 - name: Add APT repository for Debian derivatives
   template: >
-    src={{ driveclient-list.j2 }}
+    src=driveclient-list.j2
     dest={{ driveclient_source }}
     mode=0644 owner=root group=root
   when: ansible_os_family == 'Debian'
@@ -47,7 +49,6 @@
   shell: >
     /usr/local/bin/driveclient --configure --apikey {{ driveclient_apikey }} --username {{ driveclient_username }}
     creates=/etc/driveclient/bootstrap.json
-  when: driveclient_enabled is defined and driveclient_enabled == true
   tags:
     - driveclient
     - rackspace
@@ -57,7 +58,6 @@
     name={{ driveclient_service }}
     state=started
     enabled=yes
-  when: driveclient_enabled is defined and driveclient_enabled == true
   tags:
     - driveclient
     - rackspace
